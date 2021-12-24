@@ -2,15 +2,13 @@ using UnityEngine;
 
 public class Circle : MonoBehaviour
 {
-    [SerializeField] private float _rotationSpeed;
-    private bool _isRotating;
     private bool _isNew = true;
 
     private CirclesManager _circlesManager;
     public CirclesManager CirclesManager { get => _circlesManager; set => _circlesManager = value; }
 
     private float _yToMove;
-    private const float _CONSTVALUE = -2.5f;
+    private const float _YTOFALL = -2.5f;
 
     public void Initizlize()
     {
@@ -22,16 +20,10 @@ public class Circle : MonoBehaviour
         _circlesManager.CircleAdded -= OnNewCircleCreated;
     }
 
-    private void Start()
-    {
-        _yToMove = _CONSTVALUE;
-        MoveToY(0, true);
-    }
-
     private void OnNewCircleCreated()
     {
         MoveToY(_yToMove, false);
-        _yToMove += _CONSTVALUE;
+        _yToMove += _YTOFALL;
 
         if (!_isNew)
         {
@@ -53,23 +45,23 @@ public class Circle : MonoBehaviour
         iTween.MoveTo(gameObject, iTween.Hash(new object[]
         {
             "y", yValue,
-            "easetype", iTween.EaseType.spring,
+            nameof(iTween.EaseType), iTween.EaseType.spring,
             "time", 1f,
-            "OnComplete", nameof(SetBool),
-            "OnCompleteParams", boolValue
+            "OnComplete", nameof(Rotate),
         }));
     }
 
-    private void SetBool(bool value)
+    private void Rotate()
     {
-        _isRotating = value;
-    }
+        Debug.Log(_circlesManager.RotationsCount);
 
-    private void Update()
-    {
-        if (_isRotating)
-        {
-            transform.Rotate(Vector3.up * _rotationSpeed * Time.deltaTime);
-        }
+        iTween.RotateBy(this.gameObject, iTween.Hash(new object[]
+            {
+                "y", _circlesManager.RotationsCount,
+                "time", _circlesManager.RotationTime,
+                nameof(iTween.EaseType), iTween.EaseType.easeInOutQuad,
+                nameof(iTween.LoopType), iTween.LoopType.pingPong,
+                "delay", 0.5f
+            }));
     }
 }

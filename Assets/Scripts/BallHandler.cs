@@ -12,8 +12,9 @@ public class BallHandler : MonoBehaviour
 
     public event Action BallsEnded;
 
-    private void Start()
+    public void Initialize(int maxBalls)
     {
+        _maxBalls = maxBalls;
         _ballCount = _maxBalls;
     }
 
