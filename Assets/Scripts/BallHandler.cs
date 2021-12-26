@@ -37,7 +37,6 @@ public class BallHandler : MonoBehaviour
     private void OnCircleAdded(int index)
     {
         _colorIndex = index;
-        Debug.Log(_colorIndex);
     }
 
     private void Update()
@@ -50,7 +49,7 @@ public class BallHandler : MonoBehaviour
 
     private void ThrowBall()
     {
-        var ball = ObjectPool.Instance.GetPooledObject();
+        var ball = ObjectPool.Instance.GetPooledObject(PoolType.Ball);
 
         ball.GetComponent<Ball>().Initialize(_successColors[_colorIndex], _missColors[_colorIndex]);
         ball.transform.position = transform.position;
