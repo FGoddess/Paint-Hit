@@ -31,49 +31,51 @@ public class ObjectPool : MonoBehaviour
         
         for (int i = 0; i < _objectsToPool.Count; i++)
         {
-            var container = Instantiate(_container);
-
-            _objectsToPool[i].PooledObjects = new List<GameObject>();
-
-            for (int j = 0; j < _objectsToPool[i].AmountToPool; j++)
+            if (!_pooledObjectsDictionary.ContainsKey(_objectsToPool[i].PoolType))
             {
-                var temp = Instantiate(_objectsToPool[i].ObjectPrefab, container.transform);
-                temp.SetActive(false);
-                _objectsToPool[i].PooledObjects.Add(temp);
-            }
+                _objectsToPool[i].PooledObjects = new List<GameObject>();
+                var container = Instantiate(_container);
+                container.name = _objectsToPool[i].PoolType.ToString() + "Container";
 
-            _pooledObjectsDictionary.Add(_objectsToPool[i].PoolType, _objectsToPool[i].PooledObjects);
+                for (int j = 0; j < _objectsToPool[i].AmountToPool; j++)
+                {
+                    var temp = Instantiate(_objectsToPool[i].ObjectPrefab, container.transform);
+                    temp.SetActive(false);
+                    _objectsToPool[i].PooledObjects.Add(temp);
+                }
+
+                _pooledObjectsDictionary.Add(_objectsToPool[i].PoolType, _objectsToPool[i].PooledObjects);
+            }
+            else
+            {
+                Debug.LogWarning("Pooltype already exist!!!");
+
+                if (_pooledObjectsDictionary.TryGetValue(_objectsToPool[i].PoolType, out List<GameObject> pool))
+                {
+                    for (int j = 0; j < _objectsToPool[i].AmountToPool; j++)
+                    {
+                        var temp = Instantiate(_objectsToPool[i].ObjectPrefab, pool[0].transform.parent);
+                        temp.SetActive(false);
+                        pool.Add(temp);
+                    }
+                }
+            }
         }
     }
 
     public GameObject GetPooledObject(PoolType poolType)
     {
-        _pooledObjectsDictionary.TryGetValue(poolType, out List<GameObject> pool);
-
-        for (int i = 0; i < pool.Count; i++)
+        if(_pooledObjectsDictionary.TryGetValue(poolType, out List<GameObject> pool))
         {
-            if (!pool[i].activeInHierarchy)
+            for (int i = 0; i < pool.Count; i++)
             {
-                return pool[i];
+                if (!pool[i].activeInHierarchy)
+                {
+                    return pool[i];
+                }
             }
-        } 
+        }
 
         return null;
     }
-}
-
-[Serializable]
-public class ObjectToPool
-{
-    public PoolType PoolType;
-    public GameObject ObjectPrefab;
-    public int AmountToPool;
-    public List<GameObject> PooledObjects;
-}
-
-public enum PoolType
-{
-    Ball,
-    Circle,
-    BallUI
 }

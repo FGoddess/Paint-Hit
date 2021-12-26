@@ -253,18 +253,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _objectsToPool:
-  - PoolType: 0
-    ObjectPrefab: {fileID: 1713497880814598, guid: f51802ee8a2b2f14ab82cbb61cd9f722, type: 3}
-    AmountToPool: 10
-    PooledObjects: []
-  - PoolType: 0
-    ObjectPrefab: {fileID: 2712493590518721738, guid: c85c95cf7326e74449f06108a7b1e83c, type: 3}
-    AmountToPool: 20
-    PooledObjects: []
-  - PoolType: 0
-    ObjectPrefab: {fileID: 5044652806519710376, guid: 0e3a27b1a8ac43dd8deb6cb49e78ba3c, type: 3}
-    AmountToPool: 30
-    PooledObjects: []
+  - _poolType: 0
+    _objectPrefab: {fileID: 1713497880814598, guid: f51802ee8a2b2f14ab82cbb61cd9f722, type: 3}
+    _amountToPool: 20
   _container: {fileID: 5674245938682975278, guid: ed0e95dab8eb2974ea65636221472816, type: 3}
 --- !u!4 &334742230
 Transform:
