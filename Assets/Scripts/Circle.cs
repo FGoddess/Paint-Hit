@@ -53,8 +53,6 @@ public class Circle : MonoBehaviour
 
     private void Rotate()
     {
-        Debug.Log(_circlesManager.RotationsCount);
-
         iTween.RotateBy(this.gameObject, iTween.Hash(new object[]
             {
                 "y", _circlesManager.RotationsCount,

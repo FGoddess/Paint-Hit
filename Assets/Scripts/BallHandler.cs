@@ -28,7 +28,10 @@ public class BallHandler : MonoBehaviour
 
     private void ThrowBall()
     {
-        var ball = Instantiate(_ballPrefab, transform.position, Quaternion.identity, transform);
+        var ball = ObjectPool.Instance.GetPooledObject();
+        ball.GetComponent<Ball>().Initialize(Color.green, Color.red);
+        ball.transform.position = transform.position;
+        ball.SetActive(true);
         ball.GetComponent<Rigidbody>().AddForce(Vector3.forward * _force, ForceMode.Impulse);
 
         --_ballCount;

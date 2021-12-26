@@ -1,9 +1,11 @@
+using System;
+using System.Collections;
 using UnityEngine;
 
 public class Ball : MonoBehaviour
 {
-    [SerializeField] private Color _success—olor;
-    private Color _missColor = Color.red;
+    private Color _successColor;
+    private Color _missColor;
 
     private ParticleSystem _hitParticle;
     private Collider _collider;
@@ -12,11 +14,14 @@ public class Ball : MonoBehaviour
 
     private float _zOffset = 1.5f;
 
-    private void Awake()
+    public void Initialize(Color successColor, Color missColor)
     {
+        _successColor = successColor;
+        _missColor = missColor;
+
         _hitParticle = GetComponentInChildren<ParticleSystem>();
         var main = _hitParticle.main;
-        main.startColor = new Color(_success—olor.r, _success—olor.g, _success—olor.b, 255);
+        main.startColor = new Color(_successColor.r, _successColor.g, _successColor.b, 255);
 
         _collider = GetComponent<Collider>();
         _meshRenderer = GetComponent<MeshRenderer>();
@@ -34,7 +39,6 @@ public class Ball : MonoBehaviour
 
         _hitParticle.gameObject.transform.SetParent(collision.transform);
         _hitParticle.Play();
-        Destroy(gameObject, _hitParticle.main.duration);
 
         if (!mesh.enabled)
         {
@@ -46,5 +50,19 @@ public class Ball : MonoBehaviour
             mesh.material.color = _missColor;
             Debug.Log("game over");
         }
+
+        StartCoroutine(DelayDeactivation());
+    }
+
+    private IEnumerator DelayDeactivation()
+    {
+        yield return new WaitForSeconds(_hitParticle.main.duration);
+
+        _hitParticle.gameObject.transform.SetParent(transform);
+        _hitParticle.transform.localPosition = Vector3.zero;
+
+        gameObject.SetActive(false);
+        _collider.enabled = true;
+        _meshRenderer.enabled = true;
     }
 }

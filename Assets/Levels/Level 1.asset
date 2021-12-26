@@ -12,3 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c0e52f7eca0ff8842956d7da2d7342c4, type: 3}
   m_Name: Level 1
   m_EditorClassIdentifier: 
+  _ballsCount: 5
+  _rotationTime: 6
+  _rotationPerCircle: 0.4
+  _minRotationSpeed: 4
+  _rotationsCount: 2
+  _hitsForNextCircle: 3
+  _ballColor: {r: 0.036265016, g: 1, b: 0, a: 0}
+  _circleColor: {r: 1, g: 1, b: 1, a: 0}
+  _failColor: {r: 1, g: 0, b: 0, a: 0}
