@@ -13,6 +13,9 @@ public class LevelData : ScriptableObject
 
     [SerializeField] private float _hitsForNextCircle = 3;
 
+    [Space]
+    [SerializeField] private Color[] _successColors;
+    [SerializeField] private Color[] _missColors;
 
     public int BallsCount => _ballsCount;
 
@@ -23,4 +26,7 @@ public class LevelData : ScriptableObject
     public float RotationsCount => _rotationsCount;
 
     public float HitsForNextCircle => _hitsForNextCircle;
+
+    public Color[] SuccessColors => _successColors;
+    public Color[] MissColors => _missColors;
 }

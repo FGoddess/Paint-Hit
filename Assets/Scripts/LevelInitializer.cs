@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class LevelInitializer : MonoBehaviour
@@ -10,7 +8,7 @@ public class LevelInitializer : MonoBehaviour
 
     private void Awake()
     {
-        _ballHandler.Initialize(_levelData.BallsCount);
-        _circlesManager.Initialize(_levelData.RotationTime, _levelData.RotationPerCircle, _levelData.MinRotationSpeed, _levelData.RotationsCount);
+        _ballHandler.Initialize(_levelData.BallsCount, _levelData.SuccessColors, _levelData.MissColors);
+        _circlesManager.Initialize(_levelData.RotationTime, _levelData.RotationPerCircle, _levelData.MinRotationSpeed, _levelData.RotationsCount, _levelData.SuccessColors);
     }
 }

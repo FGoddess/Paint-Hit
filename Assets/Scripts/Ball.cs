@@ -43,7 +43,7 @@ public class Ball : MonoBehaviour
         if (!mesh.enabled)
         {
             mesh.enabled = true;
-            mesh.material.color = _success—olor;
+            mesh.material.color = _successColor;
         }
         else
         {

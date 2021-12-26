@@ -17,20 +17,25 @@ public class CirclesManager : MonoBehaviour
 
     private float _rotationsCount;
 
-    public void Initialize(float rotationTime, float rotationPerCircle, float minRotationSpeed, float rotationsCount)
+    private Color[] _circleColors;
+    private int _colorIndex = 0;
+
+    public event Action<int> CircleAdded;
+
+    public float RotationTime => _rotationTime;
+    public float RotationsCount => _rotationsCount;
+
+
+    public void Initialize(float rotationTime, float rotationPerCircle, float minRotationSpeed, float rotationsCount, Color[] circleColors)
     {
         _rotationTime = rotationTime;
         _rotationPerCircle = rotationPerCircle;
         _minRotationSpeed = minRotationSpeed;
         _rotationsCount = rotationsCount;
+        this._circleColors = circleColors;
 
         AddCircle();
     }
-
-    public float RotationTime => _rotationTime;
-    public float RotationsCount => _rotationsCount;
-
-    public event Action CircleAdded;
 
     private void OnEnable()
     {
@@ -48,9 +53,15 @@ public class CirclesManager : MonoBehaviour
         var circle = circleObj.GetComponent<Circle>();
 
         circle.GetComponent<Circle>().CirclesManager = this;
-        circle.GetComponent<Circle>().Initizlize();
+        circle.GetComponent<Circle>().Initizlize(_circleColors[_colorIndex]);
+        CircleAdded?.Invoke(_colorIndex);
 
-        CircleAdded?.Invoke();
+        _colorIndex++;
+
+        if (_colorIndex > _circleColors.Length - 1)
+        {
+            _colorIndex = 0;
+        }
 
         if (_rotationTime > _minRotationSpeed)
         {

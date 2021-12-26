@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public class Circle : MonoBehaviour
@@ -10,9 +11,12 @@ public class Circle : MonoBehaviour
     private float _yToMove;
     private const float _YTOFALL = -2.5f;
 
-    public void Initizlize()
+    private Color _successColor;
+
+    public void Initizlize(Color successColor)
     {
         _circlesManager.CircleAdded += OnNewCircleCreated;
+        _successColor = successColor;
     }
 
     private void OnDisable()
@@ -20,7 +24,7 @@ public class Circle : MonoBehaviour
         _circlesManager.CircleAdded -= OnNewCircleCreated;
     }
 
-    private void OnNewCircleCreated()
+    private void OnNewCircleCreated(int index)
     {
         MoveToY(_yToMove, false);
         _yToMove += _YTOFALL;
@@ -32,7 +36,7 @@ public class Circle : MonoBehaviour
                 transform.GetChild(i).gameObject.SetActive(false);
             }
 
-            transform.GetChild(transform.childCount - 1).GetComponent<MeshRenderer>().material.color = Color.green;
+            transform.GetChild(transform.childCount - 1).GetComponent<MeshRenderer>().material.color = _successColor;
         }
         else
         {

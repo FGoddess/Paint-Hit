@@ -18,6 +18,15 @@ MonoBehaviour:
   _minRotationSpeed: 4
   _rotationsCount: 2
   _hitsForNextCircle: 3
-  _ballColor: {r: 0.036265016, g: 1, b: 0, a: 0}
-  _circleColor: {r: 1, g: 1, b: 1, a: 0}
-  _failColor: {r: 1, g: 0, b: 0, a: 0}
+  _successColors:
+  - {r: 0.06978583, g: 1, b: 0, a: 0}
+  - {r: 0.08962262, g: 0.4339888, b: 1, a: 0}
+  - {r: 0.9427508, g: 1, b: 0, a: 0}
+  _circleColors:
+  - {r: 1, g: 1, b: 1, a: 0}
+  - {r: 0, g: 0.9301295, b: 1, a: 0}
+  - {r: 1, g: 0, b: 0.9342737, a: 0}
+  _missColors:
+  - {r: 1, g: 0, b: 0, a: 0}
+  - {r: 1, g: 0, b: 0, a: 0}
+  - {r: 1, g: 0, b: 0, a: 0}
