@@ -13,19 +13,15 @@ MonoBehaviour:
   m_Name: Level 1
   m_EditorClassIdentifier: 
   _ballsCount: 5
-  _rotationTime: 6
+  _rotationTime: 8
   _rotationPerCircle: 0.4
   _minRotationSpeed: 4
-  _rotationsCount: 2
+  _rotationsCount: 3
   _hitsForNextCircle: 3
   _successColors:
   - {r: 0.06978583, g: 1, b: 0, a: 0}
   - {r: 0.08962262, g: 0.4339888, b: 1, a: 0}
   - {r: 0.9427508, g: 1, b: 0, a: 0}
-  _circleColors:
-  - {r: 1, g: 1, b: 1, a: 0}
-  - {r: 0, g: 0.9301295, b: 1, a: 0}
-  - {r: 1, g: 0, b: 0.9342737, a: 0}
   _missColors:
   - {r: 1, g: 0, b: 0, a: 0}
   - {r: 1, g: 0, b: 0, a: 0}
